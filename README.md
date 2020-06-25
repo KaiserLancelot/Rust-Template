@@ -1,2 +1,2 @@
-# Rust-Template
+# rust-template
  A template for Rust projects
