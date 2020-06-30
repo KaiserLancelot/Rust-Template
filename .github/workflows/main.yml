@@ -46,22 +46,10 @@ jobs:
       - name: Gather coverage data
         id: coverage
         uses: actions-rs/grcov@v0.1
-        with:
-          coveralls-token: ${{ secrets.COVERALLS_TOKEN }}
 
-      - name: Coveralls upload
-        uses: coverallsapp/github-action@master
+      - name: Codecov upload
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: codecov/codecov-action@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel: true
-          path-to-lcov: ${{ steps.coverage.outputs.report }}
-
-  finalize:
-    runs-on: ubuntu-latest
-    needs: ci
-    steps:
-      - name: Coveralls finalization
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel-finished: true
+          file: ${{ steps.coverage.outputs.report }}
+          fail_ci_if_error: true
