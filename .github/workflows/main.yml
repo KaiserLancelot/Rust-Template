@@ -16,20 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-
-      - name: Clean
-        uses: actions-rs/cargo@v1
-        with:
-          command: clean
-
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
           toolchain: nightly
+          # components:
           override: true
 
       - name: Pre-installing grcov
